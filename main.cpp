@@ -28,6 +28,7 @@ Create a branch named Part3
  */
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 /*
  copied UDT 1:
  */
@@ -45,6 +46,14 @@ struct Animal
     int numLegs; 
     int numToesOnFoot;
     bool isItAPobble = false;
+    JUCE_LEAK_DETECTOR(Animal)
+};
+
+struct AnimalWrapper
+{
+    AnimalWrapper(Animal* p):pAnimal(p){};
+    ~AnimalWrapper(){ delete pAnimal; }
+    Animal* pAnimal;
 };
 
 /*
@@ -63,6 +72,14 @@ struct Car
     bool driving;
     float petrol;
     int miles;
+    JUCE_LEAK_DETECTOR(Car)
+};
+
+struct CarWrapper
+{
+    CarWrapper(Car* p): pCar(p) {};
+    ~CarWrapper(){ delete pCar; };
+    Car* pCar;
 };
 
 
@@ -80,8 +97,15 @@ struct Multiply
 
     int maxMultiple;
     int result;
+    JUCE_LEAK_DETECTOR(Multiply)
 };
 
+struct MultiplyWrapper
+{
+    MultiplyWrapper(Multiply* p): pMultiply(p) {};
+    ~MultiplyWrapper() { delete pMultiply; };
+    Multiply* pMultiply;
+};
 /*
  new UDT 4:
  */
@@ -94,6 +118,14 @@ struct MyLife
     Animal pet;
     Car ford;
     Multiply homeWork;
+    JUCE_LEAK_DETECTOR(MyLife)
+};
+
+struct MyLifeWrapper
+{
+    MyLifeWrapper(MyLife* p): pMyLife(p) {};
+    ~MyLifeWrapper() { delete pMyLife; };
+    MyLife* pMyLife;
 };
 
 /*
@@ -108,8 +140,15 @@ struct YourLife
     Animal pet;
     Car ford;
     Multiply homeWork;
+    JUCE_LEAK_DETECTOR(YourLife)
 };
 
+struct YourLifeWrapper
+{
+    YourLifeWrapper(YourLife* p): pYourLife(p) {};
+    ~YourLifeWrapper() { delete pYourLife; };
+    YourLife* pYourLife;
+};
 
 ///////////////////////////////////////////////////////////
 Animal::Animal() : totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false)
