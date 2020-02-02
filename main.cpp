@@ -60,8 +60,8 @@ struct Animal
     void howManyToes();
     void setNumLegs(int nL);
     void setNumToesOnFoot(int nTOF);
+    void printNumLegs();
 
-private:
     int totalToes;
     int numLegs; 
     int numToesOnFoot;
@@ -79,8 +79,8 @@ struct Car
     void distanceTraveled();
     void setDriving(bool d);
     void setPetrol(float p);
+    void printMiles();
 
-private:
     bool driving;
     float petrol;
     int miles;
@@ -97,8 +97,8 @@ struct Multiply
     ~Multiply();
     void multipleOf(int num);
     void setMaxMultiple(int mM);
+    void printFinalResult();
 
-private:
     int maxMultiple;
     int result;
 };
@@ -111,7 +111,7 @@ struct MyLife
 {
     MyLife();
     ~MyLife();
-private:
+
     Animal pet;
     Car ford;
     Multiply homeWork;
@@ -125,7 +125,7 @@ struct YourLife
 {
     YourLife();
     ~YourLife();
-private:
+
     Animal pet;
     Car ford;
     Multiply homeWork;
@@ -168,6 +168,10 @@ void Animal::setNumToesOnFoot(int nTOF)
     numToesOnFoot = nTOF; 
 }
 
+void Animal::printNumLegs()
+{
+    std::cout << "this-> animal has: " << numLegs << "legs" << std::endl;
+}
 ///////////////////////////////////////////////////////////
 
 Car::Car() : driving(false), petrol(8.0f), miles(0)
@@ -205,6 +209,11 @@ void Car::setPetrol(float p)
     petrol = p;
 }
 
+void Car::printMiles()
+{
+    std::cout << "this-> car has traveled " << this->miles << " miles" << std::endl;
+}
+
 ///////////////////////////////////////////////////////////
 
 Multiply::Multiply() : maxMultiple(12), result(0) 
@@ -230,6 +239,12 @@ void Multiply::multipleOf(int num)
 void Multiply::setMaxMultiple(int mM)
 {
     maxMultiple = mM;
+}
+
+void Multiply::printFinalResult()
+{
+    std::cout << "this-> final result is " << this->result << std::endl;
+
 }
 
 ///////////////////////////////////////////////////////////
@@ -267,15 +282,23 @@ int main()
     a.setNumToesOnFoot(4);
     a.howManyToes();
 
+    std::cout << "This animal has: " << a.numLegs << " legs" << std::endl;
+    a.printNumLegs();
+
     Car c;
     c.setPetrol(10.5f);
     c.setDriving(true);
     c.distanceTraveled();
-    std::cout << "good to go!" << std::endl;
+
+    std::cout << "This car has traveled " << c.miles << " miles" << std::endl;
+    c.printMiles();
 
     Multiply m;
     m.setMaxMultiple(20);
     m.multipleOf(8);
+
+    std::cout << "The Final result from my times table is  " << m.result << std::endl;
+    m.printFinalResult();
 
     MyLife me;
     YourLife you;
