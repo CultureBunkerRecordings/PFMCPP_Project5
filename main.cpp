@@ -122,7 +122,7 @@ private:
 
 
 ///////////////////////////////////////////////////////////
-Animal::Animal():totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false)
+Animal::Animal() : totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false)
 {
 
 }
@@ -159,7 +159,7 @@ void Animal::setNumToesOnFoot(int nTOF)
 
 ///////////////////////////////////////////////////////////
 
-Car::Car():driving(false), petrol(8.0f), miles(0)
+Car::Car() : driving(false), petrol(8.0f), miles(0)
 {
 
 }
@@ -196,7 +196,7 @@ void Car::setPetrol(float p)
 
 ///////////////////////////////////////////////////////////
 
-Multiply::Multiply(): maxMultiple(12), result(0) 
+Multiply::Multiply() : maxMultiple(12), result(0) 
 {
 
 }
@@ -250,20 +250,20 @@ YourLife::~YourLife()
 
 int main()
 {
-    // Animal a;
-    // a.setNumLegs(8);
-    // a.setNumToesOnFoot(4);
-    // a.howManyToes();
+    Animal a;
+    a.setNumLegs(8);
+    a.setNumToesOnFoot(4);
+    a.howManyToes();
 
-    // Car c;
-    // c.setPetrol(10.5f);
-    // c.setDriving(true);
-    // c.distanceTraveled();
-    // std::cout << "good to go!" << std::endl;
+    Car c;
+    c.setPetrol(10.5f);
+    c.setDriving(true);
+    c.distanceTraveled();
+    std::cout << "good to go!" << std::endl;
 
-    // Multiply m;
-    // m.setMaxMultiple(20);
-    // m.multipleOf(8);
+    Multiply m;
+    m.setMaxMultiple(20);
+    m.multipleOf(8);
 
     MyLife me;
     YourLife you;
