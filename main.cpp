@@ -61,7 +61,6 @@ struct Animal
     void setNumLegs(int nL);
     void setNumToesOnFoot(int nTOF);
 
-private:
     int totalToes;
     int numLegs; 
     int numToesOnFoot;
@@ -80,7 +79,6 @@ struct Car
     void setDriving(bool d);
     void setPetrol(float p);
 
-private:
     bool driving;
     float petrol;
     int miles;
@@ -98,7 +96,6 @@ struct Multiply
     void multipleOf(int num);
     void setMaxMultiple(int mM);
 
-private:
     int maxMultiple;
     int result;
 };
@@ -111,7 +108,7 @@ struct MyLife
 {
     MyLife();
     ~MyLife();
-private:
+
     Animal pet;
     Car ford;
     Multiply homeWork;
@@ -125,7 +122,7 @@ struct YourLife
 {
     YourLife();
     ~YourLife();
-private:
+
     Animal pet;
     Car ford;
     Multiply homeWork;
@@ -267,16 +264,21 @@ int main()
     a.setNumToesOnFoot(4);
     a.howManyToes();
 
+    std::cout << "This animal has: " << a.numLegs << " legs" << std::endl;
+
     Car c;
     c.setPetrol(10.5f);
     c.setDriving(true);
     c.distanceTraveled();
-    std::cout << "good to go!" << std::endl;
+
+    std::cout << "This car has traveled " << c.miles << " miles" << std::endl;
 
     Multiply m;
     m.setMaxMultiple(20);
     m.multipleOf(8);
 
+    std::cout << "The Final result from my times table is  " << m.result << std::endl;
+    
     MyLife me;
     YourLife you;
 }
