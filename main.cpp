@@ -159,7 +159,7 @@ Animal::Animal() : totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false
 Animal::~Animal()
 {
     std::cout << "Destroy Animal" << std::endl;
-    std::cout << std::endl;
+    // std::cout << std::endl;
 
 }
 
@@ -175,7 +175,7 @@ void Animal::howManyToes()
     if(totalToes==0)
     {
         std::cout << "The pobble who had no Toes!" << std::endl;
-        std::cout << std::endl;
+        // std::cout << std::endl;
 
         isItAPobble = true;
     }
@@ -196,7 +196,7 @@ void Animal::setNumToesOnFoot(int nTOF)
 void Animal::printNumLegs()
 {
     std::cout << "this-> animal has: " << numLegs << "legs" << std::endl;
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 ///////////////////////////////////////////////////////////
 
@@ -208,7 +208,7 @@ Car::Car() : driving(false), petrol(8.0f), miles(0)
 Car::~Car()
 {
     std::cout << "Destroy Car" << std::endl;
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 void Car::distanceTraveled()
@@ -220,7 +220,8 @@ void Car::distanceTraveled()
         petrol -= 0.5f;
         if(petrol <= 0.0f)
         {
-            std::cout << std::endl;
+            std::cout << "out of petrol" << std::endl;
+            // std::cout << std::endl;
             break;
         }
     }
@@ -240,7 +241,7 @@ void Car::setPetrol(float p)
 void Car::printMiles()
 {
     std::cout << "this-> car has traveled " << this->miles << " miles" << std::endl;
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 ///////////////////////////////////////////////////////////
@@ -253,7 +254,7 @@ Multiply::Multiply() : maxMultiple(12), result(0)
 Multiply::~Multiply()
 {
     std::cout << "Destroy Multiply" << std::endl;
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 void Multiply::multipleOf(int num)
@@ -263,7 +264,7 @@ void Multiply::multipleOf(int num)
     result = num * i;
     std::cout<< num << " times " << i << " equals " << result << std::endl; 
     }
-    std::cout << std::endl;
+    // std::cout << std::endl;
 }
 
 void Multiply::setMaxMultiple(int mM)
@@ -274,7 +275,7 @@ void Multiply::setMaxMultiple(int mM)
 void Multiply::printFinalResult()
 {
     std::cout << "this-> final result is " << this->result << std::endl;
-    std::cout << std::endl;
+    // std::cout << std::endl;
 
 }
 
@@ -349,4 +350,6 @@ int main()
 
     MyLife me;
     YourLife you;
+    std::cout << "good to go" << std::endl;
+    return 0;
 }
