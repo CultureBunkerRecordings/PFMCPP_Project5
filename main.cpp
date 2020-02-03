@@ -28,6 +28,7 @@ Create a branch named Part3
  */
 
 #include <iostream>
+#include "LeakedObjectDetector.h"
 /*
  copied UDT 1:
  */
@@ -45,6 +46,14 @@ struct Animal
     int numLegs; 
     int numToesOnFoot;
     bool isItAPobble = false;
+    JUCE_LEAK_DETECTOR(Animal)
+};
+
+struct AnimalWrapper
+{
+    AnimalWrapper(Animal* p):pAnimal(p){}
+    ~AnimalWrapper(){ delete pAnimal; }
+    Animal* pAnimal = nullptr;
 };
 
 /*
@@ -63,6 +72,14 @@ struct Car
     bool driving;
     float petrol;
     int miles;
+    JUCE_LEAK_DETECTOR(Car)
+};
+
+struct CarWrapper
+{
+    CarWrapper(Car* p): pCar(p) {}
+    ~CarWrapper(){ delete pCar; }
+    Car* pCar = nullptr;
 };
 
 
@@ -80,8 +97,15 @@ struct Multiply
 
     int maxMultiple;
     int result;
+    JUCE_LEAK_DETECTOR(Multiply)
 };
 
+struct MultiplyWrapper
+{
+    MultiplyWrapper(Multiply* p): pMultiply(p) {}
+    ~MultiplyWrapper() { delete pMultiply; }
+    Multiply* pMultiply = nullptr;
+};
 /*
  new UDT 4:
  */
@@ -94,6 +118,14 @@ struct MyLife
     Animal pet;
     Car ford;
     Multiply homeWork;
+    JUCE_LEAK_DETECTOR(MyLife)
+};
+
+struct MyLifeWrapper
+{
+    MyLifeWrapper(MyLife* p): pMyLife(p) {}
+    ~MyLifeWrapper() { delete pMyLife; }
+    MyLife* pMyLife = nullptr;
 };
 
 /*
@@ -108,8 +140,15 @@ struct YourLife
     Animal pet;
     Car ford;
     Multiply homeWork;
+    JUCE_LEAK_DETECTOR(YourLife)
 };
 
+struct YourLifeWrapper
+{
+    YourLifeWrapper(YourLife* p): pYourLife(p) {}
+    ~YourLifeWrapper() { delete pYourLife; }
+    YourLife* pYourLife = nullptr;
+};
 
 ///////////////////////////////////////////////////////////
 Animal::Animal() : totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false)
@@ -120,21 +159,28 @@ Animal::Animal() : totalToes(0), numLegs(0), numToesOnFoot(0), isItAPobble(false
 Animal::~Animal()
 {
     std::cout << "Destroy Animal" << std::endl;
+    // std::cout << std::endl;
+
 }
 
 void Animal::howManyToes()
 {
+    std::cout << std::endl;
     for(int i = 1; i<=numLegs;i++)
     {
         totalToes = i*numToesOnFoot;
-        std::cout << "foot: " << i << " Toe count: " << totalToes << std::endl; 
+        std::cout << "foot: " << i << " Toe count: " << totalToes << std::endl;
     }
 
     if(totalToes==0)
     {
         std::cout << "The pobble who had no Toes!" << std::endl;
+        // std::cout << std::endl;
+
         isItAPobble = true;
     }
+    std::cout << std::endl;
+
 }
 
 void Animal::setNumLegs(int nL)
@@ -150,6 +196,7 @@ void Animal::setNumToesOnFoot(int nTOF)
 void Animal::printNumLegs()
 {
     std::cout << "this-> animal has: " << numLegs << "legs" << std::endl;
+    // std::cout << std::endl;
 }
 ///////////////////////////////////////////////////////////
 
@@ -161,6 +208,7 @@ Car::Car() : driving(false), petrol(8.0f), miles(0)
 Car::~Car()
 {
     std::cout << "Destroy Car" << std::endl;
+    // std::cout << std::endl;
 }
 
 void Car::distanceTraveled()
@@ -172,6 +220,8 @@ void Car::distanceTraveled()
         petrol -= 0.5f;
         if(petrol <= 0.0f)
         {
+            std::cout << "out of petrol" << std::endl;
+            // std::cout << std::endl;
             break;
         }
     }
@@ -191,6 +241,7 @@ void Car::setPetrol(float p)
 void Car::printMiles()
 {
     std::cout << "this-> car has traveled " << this->miles << " miles" << std::endl;
+    // std::cout << std::endl;
 }
 
 ///////////////////////////////////////////////////////////
@@ -203,6 +254,7 @@ Multiply::Multiply() : maxMultiple(12), result(0)
 Multiply::~Multiply()
 {
     std::cout << "Destroy Multiply" << std::endl;
+    // std::cout << std::endl;
 }
 
 void Multiply::multipleOf(int num)
@@ -212,7 +264,7 @@ void Multiply::multipleOf(int num)
     result = num * i;
     std::cout<< num << " times " << i << " equals " << result << std::endl; 
     }
-
+    // std::cout << std::endl;
 }
 
 void Multiply::setMaxMultiple(int mM)
@@ -223,6 +275,7 @@ void Multiply::setMaxMultiple(int mM)
 void Multiply::printFinalResult()
 {
     std::cout << "this-> final result is " << this->result << std::endl;
+    // std::cout << std::endl;
 
 }
 
@@ -235,6 +288,7 @@ MyLife::MyLife()
 
 MyLife::~MyLife()
 {
+    std::cout << "This is called from the destructor" << std::endl;
     pet.howManyToes();
 }
 
@@ -249,6 +303,7 @@ YourLife::~YourLife()
 {
     pet.setNumLegs(4);
     pet.setNumToesOnFoot(5);
+    std::cout << "This is called from the destructor" << std::endl;
     pet.howManyToes();
 }
 
@@ -260,24 +315,41 @@ int main()
     a.setNumToesOnFoot(4);
     a.howManyToes();
 
+    AnimalWrapper aW(new Animal());
+
     std::cout << "This animal has: " << a.numLegs << " legs" << std::endl;
     a.printNumLegs();
+
+    std::cout << "This heap animal has: " << aW.pAnimal->numLegs << " legs" << std::endl;
+    aW.pAnimal->printNumLegs();
 
     Car c;
     c.setPetrol(10.5f);
     c.setDriving(true);
     c.distanceTraveled();
 
+    CarWrapper cW(new Car());
+
     std::cout << "This car has traveled " << c.miles << " miles" << std::endl;
     c.printMiles();
+
+    std::cout << "This heap car has traveled " << cW.pCar->miles << " miles" << std::endl;
+    cW.pCar->printMiles();
 
     Multiply m;
     m.setMaxMultiple(20);
     m.multipleOf(8);
 
+    MultiplyWrapper mW(new Multiply());
+
     std::cout << "The Final result from my times table is  " << m.result << std::endl;
     m.printFinalResult();
 
+    std::cout << "The Final heap result from my times table is  " << mW.pMultiply->result << std::endl;
+    mW.pMultiply->printFinalResult();
+
     MyLife me;
     YourLife you;
+    std::cout << "good to go" << std::endl;
+    return 0;
 }
