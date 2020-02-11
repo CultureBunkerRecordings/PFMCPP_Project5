@@ -1,4 +1,9 @@
 #include "Wrapper.h"
+#include "Multiply.h"
+#include "Car.h"
+#include "Animal.h"
+#include "MyLife.h"
+#include "YourLife.h"
 
 AnimalWrapper::AnimalWrapper(Animal* p):pAnimal(p)
 {

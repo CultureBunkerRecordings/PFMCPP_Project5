@@ -1,7 +1,6 @@
 #include <iostream>
-#include "Multiply.h"
 #include "Wrapper.h"
-
+#include "Multiply.h"
 
 Multiply::Multiply() : maxMultiple(12), result(0) 
 {

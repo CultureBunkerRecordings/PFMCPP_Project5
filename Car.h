@@ -16,3 +16,4 @@ struct Car
     int miles;
     JUCE_LEAK_DETECTOR(Car)
 };
+
